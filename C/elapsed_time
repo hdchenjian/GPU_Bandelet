@@ -1,0 +1,3 @@
+cpu s = 2	8750 ms	bits_code is 2826
+	s = 4	17350 ms bits_code is 2826
+	s = 8	34590 ms bits_code is 2826

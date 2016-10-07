@@ -1,0 +1,10 @@
+sum(sum(M^2-reconstruct^2))
+
+ans =   3.5686e-05
+
+>> a=abs( M-reconstruct)<0.0000000001;
+unique(a)
+
+ans =
+
+     1
