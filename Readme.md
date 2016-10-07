@@ -1,4 +1,4 @@
-# GPU实现Bandelet变换(Peyré G, Mallat S. Second Generation Bandelets and their Application to Image and 3D Meshes Compression)
+### GPU实现Bandelet变换(Peyré G, Mallat S. Second Generation Bandelets and their Application to Image and 3D Meshes Compression)
 
 目录结构:
 C: C语言实现
