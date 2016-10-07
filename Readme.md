@@ -2,9 +2,9 @@
 
 ```
 目录结构:
-C: C语言实现
-GPU_CUDA: Nvidia CUDA 平台GPU实现
-Matlab: Matlab版本(包含Bandelet逆变换)
+	C: C语言实现
+	GPU_CUDA: Nvidia CUDA 平台GPU实现
+	Matlab: Matlab版本(包含Bandelet逆变换)
 
 对不同的大小的图片,Bandelet变换分别在 CPU 和 GPU 上运行的时间:
 图像分辨率 256×256  512×512  1024×1024
