@@ -6,9 +6,9 @@
 ```json
 {
     "code": 0, // 0: 成功; 其他数字: 失败
-    "error": "", //供多语言使用
+    "error": "",
     "detail": "",
-    "data": {}  // json 格式返回数据
+    "data": {}  // 返回的数据
 }
 ```
 
@@ -67,17 +67,17 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ## API:
 
-### 注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高，图片较小,建议使用jpg格式
+#### 注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高，图片较小,建议使用jpg格式
 
-#### URL
+##### URL
 
 `/register_user`
 
-#### Method
+##### Method
 
 `POST`
 
-### Request Body
+#### Request Body
 ```json
 {
     "name": "张三"
@@ -89,7 +89,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
-#### Success Response
+##### Success Response
 
 ```json
 {
@@ -103,17 +103,17 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 
 
-### 识别一张JPG格式的图片
+#### 识别一张JPG格式的图片
 
-#### URL
+##### URL
 
 `/recognition_user`
 
-#### Method
+##### Method
 
 `POST`
 
-### Request Body
+#### Request Body
 ```json
 // files:
 {
@@ -121,7 +121,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
-#### Success Response
+##### Success Response
 
 ```json
 {
@@ -132,39 +132,39 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
              {"user_id": 1001, "name": "李四", "location": [465, 138, 790, 567]}]
 }
 // location 字段为人脸框位置,四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
-//                                            右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
+//                                       右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
 ```
 
 
 
-### 获取用户头像
+#### 获取用户头像
 
-#### URL
+##### URL
 
 `/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
 
-#### Method
+##### Method
 
 `GET`
 
-#### Success Response
+##### Success Response
 
 ```
 返回用户头像, "image/jpeg" 格式
 ```
 
 
-### 查询所有注册用户
+#### 查询所有注册用户
 
-#### URL
+##### URL
 
 `/get_all_user`
 
-#### Method
+##### Method
 
 `GET`
 
-#### Success Response
+##### Success Response
 
 ```json
 {
@@ -179,17 +179,17 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 
 
-### 更新用户信息
+#### 更新用户信息
 
-#### URL
+##### URL
 
 `/update_user_info`
 
-#### Method
+##### Method
 
 `POST`
 
-### Request Body
+#### Request Body
 ```json
 {
     "user_id": 1000,
@@ -197,7 +197,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
-#### Success Response
+##### Success Response
 
 ```json
 {
@@ -210,24 +210,24 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 
 
-### 删除用户
+#### 删除用户
 
-#### URL
+##### URL
 
 `/delete_user`
 
-#### Method
+##### Method
 
 `POST`
 
-### Request Body
+#### Request Body
 ```json
 {
     "user_id": 1000,  // 将id为 1000 的用户删除
 }
 ```
 
-#### Success Response
+##### Success Response
 
 ```json
 {
