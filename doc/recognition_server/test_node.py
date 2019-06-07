@@ -5,7 +5,7 @@ import requests
 from hashlib import md5
 import datetime
 
-host = 'http://localhost:5055'
+host = 'http://120.79.161.218:5055'
 
 app_key = 'de13da9feb449ef11e98f9a6c4b90040'
 app_secret = 'dfbec30sdfdfn0916cb419c82703ddd6'
