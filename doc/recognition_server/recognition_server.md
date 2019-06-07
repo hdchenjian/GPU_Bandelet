@@ -31,9 +31,9 @@
 | 参数 | 说明 | 示例 |
 | ---- | ---- | ---- |
 | API | 不包含 host和参数 部分的 api 地址 | /register_user |
-| DATE | 当前世界ISO格式 | 2019-06-07T23:29:44.647641 |
-| APP_KEY | 当前版本的 key | de13da9feb449ef11e98f9a6c4b90040 |
-| APP_SECRET | 当前版本的 secret | dfbec30sdfdfn0916cb419c82703ddd6 |
+| DATE | 当前时间ISO格式 | 2019-06-07T23:29:44.647641 |
+| APP_KEY | 签名 key | de13da9feb449ef11e98f9a6c4b90040 |
+| APP_SECRET | 签名 secret | dfbec30sdfdfn0916cb419c82703ddd6 |
 | md5 | 字符串加密算法 |  |
 | Device_id | 用户唯一标识 | 00163e0cd5fb |
 
@@ -47,7 +47,9 @@ APP_SECRET: dfbec30sdfdfn0916cb419c82703ddd6
 
 签名字符串为: /register_user&2019-06-07T23:34:21.529118&dfbec30sdfdfn0916cb419c82703ddd6
 md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
-则请求 headers 为: {"Date": "2019-06-07T23:34:21.529118", "Authorization": "de13da9feb449ef11e98f9a6c4b90040:9e58f46a6edabb9e43816e4c6d52036c", "Device_id": "00163e0cd5fb"}
+则请求 headers 为: {"Date": "2019-06-07T23:34:21.529118",
+                    "Device_id": "00163e0cd5fb",
+                    "Authorization": "de13da9feb449ef11e98f9a6c4b90040:9e58f46a6edabb9e43816e4c6d52036c"}
 ```
 
 ## 错误码
@@ -62,7 +64,10 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 | 1004 | `registration_failed` | 注册失败 | 200 |
 | 1005 | `recognition_failed` | 识别失败 | 200 |
 
-### 提交一张JPG格式的图片注册
+
+## API:
+
+### 注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高，图片较小,建议使用jpg格式
 
 #### URL
 
@@ -75,10 +80,12 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ### Request Body
 ```json
 {
-    'name': '张三'
+    "name": "张三"
 }
+
+// files:
 {
-    'image': open('1.jpg', 'rb'),     // Multipart-Encoded JPG图片
+    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
 }
 ```
 
@@ -108,8 +115,9 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ### Request Body
 ```json
+// files:
 {
-    'image': open('1.jpg', 'rb'),     // Multipart-Encoded JPG图片
+    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
 }
 ```
 
@@ -123,13 +131,55 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "data": [{"user_id": 1000, "name": "张三", "location": [1390, 611, 2452, 1892]},
              {"user_id": 1001, "name": "李四", "location": [465, 138, 790, 567]}]
 }
-// location 字段为人脸框位置，四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
+// location 字段为人脸框位置,四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
 //                                            右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
 ```
 
 
 
-### 跟新用户信息
+### 获取用户头像
+
+#### URL
+
+`/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
+
+#### Method
+
+`GET`
+
+#### Success Response
+
+```
+返回用户头像, "image/jpeg" 格式
+```
+
+
+### 查询所有注册用户
+
+#### URL
+
+`/get_all_user`
+
+#### Method
+
+`GET`
+
+#### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": [{"user_id": 1000, "user_name": "张三", "head_image": "/get_person_head_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000"},
+             {"user_id": 1001, "user_name": "李四", "head_image": "/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001"},]
+}
+// head_image 字段为用户头像,可用该URL获取用户头像
+```
+
+
+
+### 更新用户信息
 
 #### URL
 
@@ -142,8 +192,8 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ### Request Body
 ```json
 {
-    'user_id': 1000,
-    'name': u'李四'   // 将id为 1000 的用户重命名未 李四
+    "user_id": 1000,
+    "name": u"李四"   // 将id为 1000 的用户重命名为 李四
 }
 ```
 
@@ -173,7 +223,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ### Request Body
 ```json
 {
-    'user_id': 1000,  // 将id为 1000 的用户删除
+    "user_id": 1000,  // 将id为 1000 的用户删除
 }
 ```
 
@@ -189,43 +239,4 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```
 
 
-### 查询所有注册用户
-
-#### URL
-
-`/get_all_user`
-
-#### Method
-
-`GET`
-
-#### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": [{"user_id": 1000, "user_name": "张三", "head_image": "/get_person_head_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000"},
-             {"user_id": 1001, "user_name": "李四", "head_image": "/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001"},]
-}
-// head_image 字段为用户头像，可用该URL获取用户头像
-```
-
-
-### 获取用户头像
-
-#### URL
-
-`/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
-
-#### Method
-
-`GET`
-
-#### Success Response
-
-```
-返回用户头像 'image/jpeg' 格式
-```
 
