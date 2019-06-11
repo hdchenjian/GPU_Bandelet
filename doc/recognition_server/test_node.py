@@ -5,7 +5,7 @@ import requests
 from hashlib import md5
 import datetime
 
-host = 'http://120.79.161.218:5055'
+host = 'http://localhost:5055'
 
 app_key = 'de13da9feb449ef11e98f9a6c4b90040'
 app_secret = 'dfbec30sdfdfn0916cb419c82703ddd6'
@@ -27,7 +27,9 @@ def get_headers(uri):
 def test_register():
     url = '/register_user'
     data = {
-        'name': u'张三'
+        'name': u'张三',
+        'user_id': 'e10adc3949ba59abbe56e057f20f883e',
+        'remark': 'test'
     }
     files = {'image': open('1.jpg', 'rb')}
     print(get_headers(url))
@@ -42,34 +44,35 @@ def test_recognition():
     print(ret.content)
 
 
-def test_update_user_info():
-    url = '/update_user_info'
-    ret = requests.post(host + url, data={'user_id': 1000, 'name': u'李四'}, headers = get_headers(url))
+def test_update_feature_info():
+    url = '/update_feature_info'
+    data = {'feature_id': 1000, 'name': u'李四', 'user_id': 'e10adc3949ba59abbe56e057f20f883e', 'remark': 'test'}
+    ret = requests.post(host + url, data=data, headers = get_headers(url))
     print(ret.content)
 
 
-def test_delete_user():
-    url = '/delete_user'
-    ret = requests.post(host + url, data={'user_id': 1003}, headers = get_headers(url))
+def test_delete_feature():
+    url = '/delete_feature'
+    ret = requests.post(host + url, data={'feature_id': 1000}, headers = get_headers(url))
     print(ret.content)
 
 
-def test_get_all_user():
-    url = '/get_all_user'
+def test_get_all_feature():
+    url = '/get_all_feature'
     ret = requests.get(host + url, headers = get_headers(url))
     print(ret.content)
 
 
-def test_get_person_head_picture():
-    url = '/get_person_head_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000'
-    ret = requests.get(host + url, headers = get_headers('/get_person_head_picture'))
+def test_get_feature_picture():
+    url = '/get_feature_picture?picture_id=a7d6b7cf40a34d039cc9312fca1e1004'
+    ret = requests.get(host + url, headers = get_headers('/get_feature_picture'))
     #print(ret.content)
 
 
 if __name__ == '__main__':
     #test_recognition()
     #test_register()
-    #test_update_user_info()
-    #test_delete_user()
-    test_get_all_user()
-    #test_get_person_head_picture()
+    #test_update_feature_info()
+    #test_delete_feature()
+    test_get_all_feature()
+    #test_get_feature_picture()

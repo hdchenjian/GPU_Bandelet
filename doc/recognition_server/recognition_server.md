@@ -80,7 +80,9 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 #### Request Body
 ```json
 {
-    "name": "张三"
+    "name": "张三",
+    "user_id": "e10adc3949ba59abbe56e057f20f883e",
+    "remark": "test"
 }
 
 // files:
@@ -96,7 +98,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": {"user_id": 1003}
+    "data": {"feature_id": 1003}
 }
 
 ```
@@ -128,8 +130,8 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"user_id": 1000, "name": "张三", "location": [1390, 611, 2452, 1892]},
-             {"user_id": 1001, "name": "李四", "location": [465, 138, 790, 567]}]
+    "data": [{"feature_id": 1000, "name": "张三", "user_id": "abc", "remark": "test", "location": [1390, 611, 2452, 1892]},
+             {"feature_id": 1001, "name": "李四", "user_id": "123", "remark": "test", "location": [465, 138, 790, 567]}]
 }
 // location 字段为人脸框位置,四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
 //                                       右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
@@ -137,11 +139,11 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 
 
-#### api_003获取用户头像
+#### api_003获取注册时提交的图片
 
 ##### URL
 
-`/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
+`/get_feature_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
 
 ##### Method
 
@@ -158,7 +160,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/get_all_user`
+`/get_all_feature`
 
 ##### Method
 
@@ -171,19 +173,18 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"user_id": 1000, "user_name": "张三", "head_image": "/get_person_head_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000"},
-             {"user_id": 1001, "user_name": "李四", "head_image": "/get_person_head_picture?picture_id=6a7a95ef807a42d8a9ade47642521001"},]
+    "data": [{"feature_id": 1000, "user_name": "张三", "user_id": "123", "remark": "test", "image": "/get_feature_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000"},
+             {"feature_id": 1001, "user_name": "李四", "user_id": "abc", "remark": "test", "image": "/get_feature_picture?picture_id=6a7a95ef807a42d8a9ade47642521001"},]
 }
-// head_image 字段为用户头像,可用该URL获取用户头像
+// image 字段为用户注册时的图片,可用该URL获取用户头像
 ```
-
 
 
 #### api_005更新用户信息
 
 ##### URL
 
-`/update_user_info`
+`/update_feature_info`
 
 ##### Method
 
@@ -192,8 +193,10 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 #### Request Body
 ```json
 {
-    "user_id": 1000,
-    "name": u"李四"   // 将id为 1000 的用户重命名为 李四
+    "feature_id": 1000,
+    "name": "李四"   // 将feature_id为 1000 的用户重命名为 李四
+    "user_id": "a10adc3949ba59abbe56e057f20f883e",
+    "remark": "test"
 }
 ```
 
@@ -209,12 +212,11 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```
 
 
-
 #### api_006删除用户
 
 ##### URL
 
-`/delete_user`
+`/delete_feature`
 
 ##### Method
 
@@ -223,7 +225,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 #### Request Body
 ```json
 {
-    "user_id": 1000,  // 将id为 1000 的用户删除
+    "feature_id": 1000,  // 将feature_id为 1000 的用户删除
 }
 ```
 
