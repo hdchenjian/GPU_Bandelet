@@ -138,25 +138,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```
 
 
-
-#### api_003获取注册时提交的图片
-
-##### URL
-
-`/get_feature_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
-
-##### Method
-
-`GET`
-
-##### Success Response
-
-```
-返回用户头像, "image/jpeg" 格式
-```
-
-
-#### api_004查询所有注册用户
+#### api_003查询所有注册用户
 
 ##### URL
 
@@ -173,10 +155,27 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"feature_id": 1000, "user_name": "张三", "user_id": "123", "remark": "test", "image": "/get_feature_picture?picture_id=88b6b3c2831e40a7853eb207c64d1000"},
-             {"feature_id": 1001, "user_name": "李四", "user_id": "abc", "remark": "test", "image": "/get_feature_picture?picture_id=6a7a95ef807a42d8a9ade47642521001"},]
+    "data": [{"feature_id": 1000, "user_name": "张三", "user_id": "123", "remark": "test", "picture_id": "88b6b3c2831e40a7853eb207c64d1000"},
+             {"feature_id": 1001, "user_name": "李四", "user_id": "abc", "remark": "test", "picture_id": "6a7a95ef807a42d8a9ade47642521001"},]
 }
-// image 字段为用户注册时的图片,可用该URL获取用户头像
+// picture_id 字段为用户注册时的图片,可用来获取用户头像
+```
+
+
+#### api_004获取注册时提交的图片
+
+##### URL
+
+`/get_feature_picture?picture_id=6a7a95ef807a42d8a9ade47642521001`
+
+##### Method
+
+`GET`
+
+##### Success Response
+
+```
+返回用户头像, "image/jpeg" 格式
 ```
 
 
