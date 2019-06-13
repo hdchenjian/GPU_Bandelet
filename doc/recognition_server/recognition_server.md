@@ -19,11 +19,11 @@
 * 所有 api 请求都需要签名认证。
 
 * 使用 "请求api url" "当前时间" "app_key" "app_secret" 来计算出签名。将签名放到 http 请求的 headers 里
-  发送到服务器，服务器端使用同样的方法对签名进行验证
+  发送到服务器,服务器端使用同样的方法对签名进行验证
 
 #### 签名计算方法
 
-调用 api 时，在 http 请求 header 里添加 `Authorization APP_KEY:SIGNATURE`。
+调用 api 时,在 http 请求 header 里添加 `Authorization APP_KEY:SIGNATURE`。
 其中 SIGNATURE 的计算方法为 `md5(API&DATE&APP_SECRET)`。
 
 相应参数说明：
@@ -67,23 +67,26 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ## API:
 
-#### api_001注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高，图片较小,建议使用jpg格式
+#### api_001注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高,图片较小,建议使用jpg格式
 
 ##### URL
 
-`/register_user`
+`/register_user?name=张三&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
 `POST`
 
-#### Request Body
-```json
+#### url 参数
+
+```
 {
     "name": "张三",
-    "user_id": "e10adc3949ba59abbe56e057f20f883e",
-    "remark": "test"
+    "user_id": "e10adc3949ba59abbe56e057f20f883e",  // 最长255个字符,作为设备端标示用户,一个用户可注册多张图片, 识别成功返回该字段
+    "remark": "test"   // 最长255个字符, 识别成功返回该字段
 }
+
+#### Request Body
 
 // files:
 {
@@ -132,6 +135,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "detail": "",
     "data": [{"feature_id": 1000, "name": "张三", "user_id": "abc", "remark": "test", "location": [1390, 611, 2452, 1892]},
              {"feature_id": 1001, "name": "李四", "user_id": "123", "remark": "test", "location": [465, 138, 790, 567]}]
+    // user_id 和 remark 为注册时提交,原样返回
 }
 // location 字段为人脸框位置,四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
 //                                       右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
@@ -183,21 +187,58 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/update_feature_info`
+`/update_feature_info?feature_id=1000&name=李四&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
 `POST`
 
-#### Request Body
-```json
+#### url 参数
+
+```
 {
     "feature_id": 1000,
-    "name": "李四"   // 将feature_id为 1000 的用户重命名为 李四
-    "user_id": "a10adc3949ba59abbe56e057f20f883e",
-    "remark": "test"
+    "name": "李四"   // 将feature_id为 1000 的用户重命名为 李四, 不想更新该字段可传空字符串
+    "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 不想更新该字段可传空字符串
+    "remark": "test"  // 不想更新该字段可传空字符串
+}
+
+#### Request Body
+```json
+// files, 更新用户特征时需传新的图片,若只想更新用户姓名则不传
+{
+    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
 }
 ```
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {}
+}
+```
+
+
+#### api_006删除用户特征
+
+##### URL
+
+`/delete_feature?feature_id=1000`
+
+##### Method
+
+`POST`
+
+#### url 参数
+
+```
+{
+    "feature_id": 1000,  // 将feature_id为 1000 的用户特征删除
+}
 
 ##### Success Response
 
@@ -215,18 +256,18 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/delete_feature`
+`/delete_user_all_feature?user_id=a10adc3949ba59abbe56e057f20f883e`
 
 ##### Method
 
 `POST`
 
-#### Request Body
-```json
-{
-    "feature_id": 1000,  // 将feature_id为 1000 的用户删除
-}
+#### url 参数
+
 ```
+{
+    "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 将 user_id 为 a10adc3949ba59abbe56e057f20f883e 的用户所有特征删除
+}
 
 ##### Success Response
 
@@ -238,6 +279,4 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "data": {}
 }
 ```
-
-
 
