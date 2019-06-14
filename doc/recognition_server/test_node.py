@@ -81,5 +81,5 @@ if __name__ == '__main__':
     #test_update_feature_info()
     #test_delete_feature()
     #test_delete_user_all_feature()
-    #test_get_all_feature()
+    test_get_all_feature()
     #test_get_feature_picture()
