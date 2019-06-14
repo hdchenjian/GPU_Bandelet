@@ -205,6 +205,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 不想更新该字段可传空字符串
     "remark": "test"  // 不想更新该字段可传空字符串
 }
+```
 
 #### Request Body
 ```json
@@ -242,6 +243,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 {
     "feature_id": 1000,  // 将feature_id为 1000 的用户特征删除
 }
+```
 
 ##### Success Response
 
@@ -255,7 +257,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```
 
 
-#### api_006删除用户所有特征
+#### api_007删除用户所有特征
 
 ##### URL
 
