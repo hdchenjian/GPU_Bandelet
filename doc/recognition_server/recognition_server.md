@@ -12,6 +12,8 @@
 }
 ```
 
+<!--
+
 ### 签名认证
 
 * 所有接口需中请求头中加入 "Device_id" 字段, 该字段用来验证用户身份
@@ -51,6 +53,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
                     "Device_id": "00163e0cd5fb",
                     "Authorization": "de13da9feb449ef11e98f9a6c4b90040:9e58f46a6edabb9e43816e4c6d52036c"}
 ```
+-->
 
 ## 错误码
 
@@ -90,7 +93,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 // files:
 {
-    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
+    "image": ("1.jpg", open("1.jpg", "rb"), "image/jpeg"),     // Multipart-Encoded JPG图片
 }
 ```
 
@@ -122,7 +125,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```json
 // files:
 {
-    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
+    "image": ("1.jpg", open("1.jpg", "rb"), "image/jpeg"),     // Multipart-Encoded JPG图片
 }
 ```
 
@@ -207,7 +210,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```json
 // files, 更新用户特征时需传新的图片,若只想更新用户姓名则不传
 {
-    "image": open("1.jpg", "rb"),     // Multipart-Encoded JPG图片
+    "image": ("1.jpg", open("1.jpg", "rb"), "image/jpeg"),     // Multipart-Encoded JPG图片
 }
 ```
 
@@ -252,7 +255,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 ```
 
 
-#### api_006删除用户
+#### api_006删除用户所有特征
 
 ##### URL
 
