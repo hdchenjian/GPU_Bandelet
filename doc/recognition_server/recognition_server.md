@@ -273,6 +273,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 {
     "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 将 user_id 为 a10adc3949ba59abbe56e057f20f883e 的用户所有特征删除
 }
+```
 
 ##### Success Response
 
