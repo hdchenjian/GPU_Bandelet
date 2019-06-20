@@ -286,3 +286,24 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
+#### api_008设置阈值, 默认值为0.6, 阈值范围为[0,1], 建议取值范围[0.55, 0.75]
+
+##### URL
+
+`/set_threshold?threshold=0.6`
+
+##### Method
+
+`POST`
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {}
+}
+```
+
