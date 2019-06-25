@@ -74,7 +74,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/register_user?group_id=1000&name=张三&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
+`/register_user?group_id=abc&name=张三&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
@@ -84,7 +84,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
-    "group_id": 1000,
+    "group_id": "abc",  // 最长255个字符
     "name": "张三",
     "user_id": "e10adc3949ba59abbe56e057f20f883e",  // 最长255个字符,作为设备端标示用户,一个用户可注册多张图片, 识别成功返回该字段
     "remark": "test"   // 最长255个字符, 识别成功返回该字段
@@ -116,11 +116,19 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/recognition_user?group_id=1000`
+`/recognition_user?group_id=abc`
 
 ##### Method
 
 `POST`
+
+#### url 参数
+
+```
+{
+    "group_id": "abc",  // 不传该字段时,识别时匹配所有注册用户特征,传该字段时,只匹配该分组中的用户
+}
+```
 
 #### Request Body
 ```json
@@ -137,9 +145,9 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"feature": [{"feature_id": 2225, "name": "张三", "user_id": "abc", "remark": "test", "score": 0.632254},
-                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "remark": ""},
-                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "remark": ""}],
+    "data": [{"feature": [{"feature_id": 2225, "name": "张三", "user_id": "abc", "group_id": "abc", "remark": "test", "score": 0.632254},
+                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "group_id": "", "remark": ""},
+                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "group_id": "", "remark": ""}],
               "location": [230, 305, 725, 970],
               "threshold": 0.61}
             ]
@@ -155,12 +163,20 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/get_all_feature?group_id=1000&user_id=abc`
-// user_id为可选参数,不传此参数时返回分组所有注册特征信息,传此参数时返回分组中该用户特征信息
+`/get_all_feature?group_id=abc&user_id=abc`
 
 ##### Method
 
 `GET`
+
+#### url 参数
+
+```
+{
+    "group_id": "abc", // group_id为可选参数,传此参数时返回分组中所有特征信息
+    "user_id": "abc",  // user_id为可选参数,传此参数时返回该用户所有注册特征信息
+}
+```
 
 ##### Success Response
 
@@ -197,7 +213,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/update_feature_info?group_id=1000&feature_id=1000&name=李四&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
+`/update_feature_info?group_id=abc&feature_id=1000&name=李四&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
@@ -207,8 +223,8 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
-    "group_id": 1000,
     "feature_id": 1000,
+    "group_id": "abc", // 将feature_id为 1000 的用户移至 abc 分组中,不想更新该字段可传空字符串
     "name": "李四"   // 将feature_id为 1000 的用户重命名为 李四, 不想更新该字段可传空字符串
     "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 不想更新该字段可传空字符串
     "remark": "test"  // 不想更新该字段可传空字符串
@@ -239,7 +255,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/delete_feature?group_id=1000&feature_id=1000`
+`/delete_feature?group_id=abc&feature_id=1000`
 
 ##### Method
 
@@ -249,8 +265,9 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
-    "group_id": 1000,
-    "feature_id": 1000,  // 将feature_id为 1000 的用户特征删除
+    "group_id": "abc",   // 可选参数,将该分组所有注册用户删除
+    "feature_id": 1000,  // 可选参数,将feature_id为 1000 的用户特征删除
+    "user_id": "abc",    // 可选参数,将该用户所有特征删除
 }
 ```
 
@@ -265,129 +282,11 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
-
-#### api_007删除用户所有特征
-
-##### URL
-
-`/delete_user_all_feature?group_id=1000&user_id=a10adc3949ba59abbe56e057f20f883e`
-
-##### Method
-
-`POST`
-
-#### url 参数
-
-```
-{
-    "group_id": 1000,
-    "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 将 user_id 为 a10adc3949ba59abbe56e057f20f883e 的用户所有特征删除
-}
-```
-
-##### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": {}
-}
-```
-
-#### api_008设置阈值, 默认值为0.6, 阈值范围为[0,1], 建议取值范围[0.55, 0.75]
+#### api_007设置阈值, 默认值为0.6, 阈值范围为[0,1], 建议取值范围[0.55, 0.75]
 
 ##### URL
 
-`/set_threshold?group_id=1000&threshold=0.6`
-
-##### Method
-
-`POST`
-
-##### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": {}
-}
-```
-
-#### api_009添加分组
-
-##### URL
-
-`/add_group?name=test`
-
-##### Method
-
-`POST`
-
-##### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": {"group_id": 1002}
-}
-```
-
-#### api_010查询所有分组
-
-##### URL
-
-`/get_all_group`
-
-##### Method
-
-`GET`
-
-##### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": [{"group_id": 1000, "name": "test", "threshold": 0.61, "feature_num": 6},
-             {"group_id": 1001, "name": "test", "threshold": 0.61, "feature_num": 1}]
-    // threshold: 该分组阈值, feature_num: 该分组注册特征数
-}
-```
-
-#### api_011删除分组
-
-##### URL
-
-`/delete_group?group_id=1000`
-
-##### Method
-
-`POST`
-
-##### Success Response
-
-```json
-{
-    "code": 0,
-    "error": "",
-    "detail": "",
-    "data": {}
-}
-```
-
-#### api_012跟新分组
-
-##### URL
-
-`/update_group?group_id=1000&name=test`
-// 将分组名改为 test
+`/set_threshold?threshold=0.6`
 
 ##### Method
 
