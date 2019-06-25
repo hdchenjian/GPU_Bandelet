@@ -74,7 +74,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/register_user?name=张三&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
+`/register_user?group_id=1000&name=张三&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
@@ -84,6 +84,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
+    "group_id": 1000,
     "name": "张三",
     "user_id": "e10adc3949ba59abbe56e057f20f883e",  // 最长255个字符,作为设备端标示用户,一个用户可注册多张图片, 识别成功返回该字段
     "remark": "test"   // 最长255个字符, 识别成功返回该字段
@@ -115,7 +116,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/recognition_user`
+`/recognition_user?group_id=1000`
 
 ##### Method
 
@@ -136,12 +137,17 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"feature_id": 1000, "name": "张三", "user_id": "abc", "remark": "test", "location": [1390, 611, 2452, 1892]},
-             {"feature_id": 1001, "name": "李四", "user_id": "123", "remark": "test", "location": [465, 138, 790, 567]}]
-    // user_id 和 remark 为注册时提交,原样返回
-}
+    "data": [{"feature": [{"feature_id": 2225, "name": "张三", "user_id": "abc", "remark": "test", "score": 0.632254},
+                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "remark": ""},
+                          {"feature_id": -1, "score": -1, "name": "", "user_id": "", "remark": ""}],
+              "location": [230, 305, 725, 970],
+              "threshold": 0.61}
+            ]
+// 返回得分排序前三, threshold为当前分组阈值, score为对应feature_id得分, feature_id为-1时为不存在的特征
+// user_id 和 remark 为注册时提交,原样返回
 // location 字段为人脸框位置,四个坐标分别为: 左上点横坐标(距左边界的距离), 左上点纵坐标(距上边界的距离),
 //                                       右下点横坐标(距左边界的距离), 右下点纵坐标(距上边界的距离)
+}
 ```
 
 
@@ -149,7 +155,8 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/get_all_feature`
+`/get_all_feature?group_id=1000&user_id=abc`
+// user_id为可选参数,不传此参数时返回分组所有注册特征信息,传此参数时返回分组中该用户特征信息
 
 ##### Method
 
@@ -162,8 +169,8 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
     "code": 0,
     "error": "",
     "detail": "",
-    "data": [{"feature_id": 1000, "user_name": "张三", "user_id": "123", "remark": "test", "picture_id": "88b6b3c2831e40a7853eb207c64d1000"},
-             {"feature_id": 1001, "user_name": "李四", "user_id": "abc", "remark": "test", "picture_id": "6a7a95ef807a42d8a9ade47642521001"},]
+    "data": [{"feature_id": 1000, "user_name": "张三", "user_id": "abc", "remark": "test", "picture_id": "88b6b3c2831e40a7853eb207c64d1000"},
+             {"feature_id": 1001, "user_name": "张三", "user_id": "abc", "remark": "test", "picture_id": "6a7a95ef807a42d8a9ade47642521001"},]
 }
 // picture_id 字段为用户注册时的图片,可用来获取用户头像
 ```
@@ -190,7 +197,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/update_feature_info?feature_id=1000&name=李四&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
+`/update_feature_info?group_id=1000&feature_id=1000&name=李四&user_id=e10adc3949ba59abbe56e057f20f883e&remark=test`
 
 ##### Method
 
@@ -200,6 +207,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
+    "group_id": 1000,
     "feature_id": 1000,
     "name": "李四"   // 将feature_id为 1000 的用户重命名为 李四, 不想更新该字段可传空字符串
     "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 不想更新该字段可传空字符串
@@ -231,7 +239,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/delete_feature?feature_id=1000`
+`/delete_feature?group_id=1000&feature_id=1000`
 
 ##### Method
 
@@ -241,6 +249,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
+    "group_id": 1000,
     "feature_id": 1000,  // 将feature_id为 1000 的用户特征删除
 }
 ```
@@ -261,7 +270,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/delete_user_all_feature?user_id=a10adc3949ba59abbe56e057f20f883e`
+`/delete_user_all_feature?group_id=1000&user_id=a10adc3949ba59abbe56e057f20f883e`
 
 ##### Method
 
@@ -271,6 +280,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ```
 {
+    "group_id": 1000,
     "user_id": "a10adc3949ba59abbe56e057f20f883e",  // 将 user_id 为 a10adc3949ba59abbe56e057f20f883e 的用户所有特征删除
 }
 ```
@@ -290,7 +300,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/set_threshold?threshold=0.6`
+`/set_threshold?group_id=1000&threshold=0.6`
 
 ##### Method
 
@@ -307,3 +317,89 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 }
 ```
 
+#### api_009添加分组
+
+##### URL
+
+`/add_group?name=test`
+
+##### Method
+
+`POST`
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {"group_id": 1002}
+}
+```
+
+#### api_010查询所有分组
+
+##### URL
+
+`/get_all_group`
+
+##### Method
+
+`GET`
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": [{"group_id": 1000, "name": "test", "threshold": 0.61, "feature_num": 6},
+             {"group_id": 1001, "name": "test", "threshold": 0.61, "feature_num": 1}]
+    // threshold: 该分组阈值, feature_num: 该分组注册特征数
+}
+```
+
+#### api_011删除分组
+
+##### URL
+
+`/delete_group?group_id=1000`
+
+##### Method
+
+`POST`
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {}
+}
+```
+
+#### api_012跟新分组
+
+##### URL
+
+`/update_group?group_id=1000&name=test`
+// 将分组名改为 test
+
+##### Method
+
+`POST`
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {}
+}
+```
