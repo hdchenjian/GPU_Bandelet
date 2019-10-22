@@ -70,7 +70,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ## API:
 
-#### api_001注册, 图片可为 jpg、 png等格式, 由于 jpg 格式压缩比较高,图片较小,建议使用jpg格式
+#### api_001注册, 图片为 jpg格式、
 
 ##### URL
 
@@ -149,7 +149,7 @@ md5该字符串后得到: 9e58f46a6edabb9e43816e4c6d52036c
 
 ##### URL
 
-`/get_palm_picture?picture_id=1dacab50e4bc45d58d6bfee318211002
+`/get_palm_picture?picture_id=1dacab50e4bc45d58d6bfee318211002`
 
 ##### Method
 
