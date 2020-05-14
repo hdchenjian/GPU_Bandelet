@@ -4,7 +4,8 @@
 import requests
 import base64
 
-host = 'http://localhost:5055'
+#host = 'http://localhost:5055'
+host = 'http://47.91.129.200:5055'
 
 def test_registration_face():
     data = {'remark': 'test'}
