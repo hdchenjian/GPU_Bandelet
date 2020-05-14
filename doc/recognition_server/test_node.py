@@ -4,7 +4,6 @@
 import requests
 import base64
 
-#host = 'http://localhost:5055'
 host = 'http://47.91.129.200:5055'
 
 def test_registration_face():
@@ -32,8 +31,13 @@ def test_get_registration_face():
     #print(ret.content)
 
 
+def test_delete_registration_face():
+    ret = requests.post(host+'/delete_registration_face', params={'face_id': 1003})
+    print(ret.content)
+
+
 if __name__ == '__main__':
-    #test_user()
     #test_registration_face()
+    test_delete_registration_face()
     #test_recognition_face()
-    test_get_registration_face()
+    #test_get_registration_face()

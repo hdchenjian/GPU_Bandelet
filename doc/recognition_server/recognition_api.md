@@ -127,7 +127,37 @@
     "code": 0,
     "error": "",
     "detail": "",
-    "data": {"all_face": [{"picture": "9j4AAQSk", "remark": "test"}, {"picture": "9j4AAQSk", "remark": "test"}]}
+    "data": {"all_face": [{"face_id": 1001, "picture": "9j4AAQSk", "remark": "test"},
+                          {"face_id": 1002, "picture": "9j4AAQSk", "remark": "test"}]}
     // remark: remark 为注册时提交,原样返回, picture：base64编码的图片
+}
+```
+
+#### api_004删除注册图片
+
+##### URL
+
+`/get_registration_face`
+
+##### Method
+
+`GET`
+
+#### url 参数
+
+```
+{
+    "face_id"  // get_registration_face 接口返回的face_id
+}
+```
+
+##### Success Response
+
+```json
+{
+    "code": 0,
+    "error": "",
+    "detail": "",
+    "data": {}
 }
 ```
