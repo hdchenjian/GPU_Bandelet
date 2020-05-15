@@ -8,13 +8,13 @@ host = 'http://47.91.129.200:5055'
 
 def test_registration_face():
     data = {'remark': 'test'}
-    files = {'image': open('test/1.jpg', 'rb')}
+    files = {'image': open('2.jpg', 'rb')}
     ret = requests.post(host+'/registration_face', params=data, files=files)
     print(ret.content)
 
 
 def test_recognition_face():
-    files = {'image': open('test/2.jpg', 'rb')}
+    files = {'image': open('2.jpg', 'rb')}
     ret = requests.post(host+'/recognition_face', files=files)
     print(ret.content)
 
@@ -22,6 +22,8 @@ def test_recognition_face():
 def test_get_registration_face():
     ret = requests.get(host+'/get_registration_face')
     all_face = ret.json()['data']['all_face']
+    print(all_face)
+    return
     print(len(all_face))
     index = 10000
     for _face in all_face:
@@ -39,8 +41,14 @@ def test_delete_registration_face():
     print(ret.content)
 
 
+def test_get_picture():
+    ret = requests.get(host+'/get_picture', params={'picture_id': 'e223a997935142fdb6d63940790f1014'})
+    print(ret.content)
+
+
 if __name__ == '__main__':
-    #test_registration_face()
+    test_registration_face()
     #test_delete_registration_face()
     #test_recognition_face()
-    test_get_registration_face()
+    #test_get_registration_face()
+    #test_get_picture()

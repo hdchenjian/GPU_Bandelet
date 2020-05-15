@@ -97,9 +97,9 @@
     "code": 0,
     "error": "",
     "detail": "",
-    "data": {"recognition_face": [{"remark": "test", "picture": "9j4AAQSk"}
+    "data": {"recognition_face": [{"remark": "test", "picture_id": "9j4AAQSk"}
     // 返回得分排序前五,当只注册一张图片时recognition_face array 长度为 1
-    // remark: remark 为注册时提交,原样返回, picture：base64编码的图片
+    // remark: remark 为注册时提交,原样返回, picture_id：可用 get_picture 接口获取图片内容
 }
 ```
 
@@ -127,9 +127,9 @@
     "code": 0,
     "error": "",
     "detail": "",
-    "data": {"all_face": [{"face_id": 1001, "picture": "9j4AAQSk", "remark": "test"},
-                          {"face_id": 1002, "picture": "9j4AAQSk", "remark": "test"}]}
-    // remark: remark 为注册时提交,原样返回, picture：base64编码的图片
+    "data": {"all_face": [{"face_id": 1001, "picture_id": "9j4AAQSk", "remark": "test"},
+                          {"face_id": 1002, "picture_id": "9j4AAQSk", "remark": "test"}]}
+    // remark: remark 为注册时提交,原样返回, picture_id：可用 get_picture 接口获取图片内容
 }
 ```
 
@@ -160,4 +160,28 @@
     "detail": "",
     "data": {}
 }
+```
+
+#### api_004获取图片
+
+##### URL
+
+`/get_picture`
+
+##### Method
+
+`GET`
+
+#### url 参数
+
+```
+{
+    "picture_id"  // get_registration_face 或 recognition_face 接口返回的picture_id
+}
+```
+
+##### Success Response
+
+```
+"image/jpeg" 格式图片
 ```
