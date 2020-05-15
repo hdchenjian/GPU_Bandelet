@@ -21,13 +21,16 @@ def test_recognition_face():
 
 def test_get_registration_face():
     ret = requests.get(host+'/get_registration_face')
-    all_face = ret.json()['all_face']
+    all_face = ret.json()['data']['all_face']
     print(len(all_face))
+    index = 10000
     for _face in all_face:
         print(_face['remark'])
+        aa = _face['picture'].encode('ascii')
         face_data = base64.decodebytes(_face['picture'].encode('ascii'))
-        with open('face_' + _face['remark'] + '.jpg', 'wb') as f:
+        with open('face_' + _face['remark'] + '_' + str(index) + '.jpg', 'wb') as f:
             f.write(face_data)
+        index += 1
     #print(ret.content)
 
 
@@ -38,6 +41,6 @@ def test_delete_registration_face():
 
 if __name__ == '__main__':
     #test_registration_face()
-    test_delete_registration_face()
+    #test_delete_registration_face()
     #test_recognition_face()
-    #test_get_registration_face()
+    test_get_registration_face()
